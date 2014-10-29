@@ -4,6 +4,7 @@
 from __future__ import print_function
 
 import sys
+import traceback
 import sqlalchemy
 from User import user_model
 from Common import get_DB_engine,init_User_table,get_DB_session,preConstruct,check_col_name
@@ -38,7 +39,9 @@ def gen_parse_class(f_name):
                 else:
                     kargs[columns[ele_i]] = row_elements[ele_i]
             except Exception,e:
-                sys.stdout.write(e)
+                sys.stdout.write('\n {0} \r'.format(e))
+                #print(ele_i,columns,row_elements)
+                #print(e)
         # do the init
         super(spec_user_model,self).__init__(**kargs)
 
@@ -66,16 +69,18 @@ def gen_parse_class(f_name):
 # do one job
 def save_to_db(fname,user_class,single_file=False,lines_num=1000):
     """
+    save 
     """
     sess = get_DB_session()
     #sess.autocommit = True
     with open(fname) as f:
         if single_file==True:
-            f.readline()
+            print(f.readline())
         line_n = 0
         while True:
             for line in f:
                 try:
+                    #print(line,type(line))
                     user = user_class(line)
                     sess.add(user)
                     line_n += 1

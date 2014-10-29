@@ -6,7 +6,7 @@ from __future__ import print_function
 import sys
 import sqlalchemy
 from User import user_model
-from Common import get_DB_engine,init_User_table,get_DB_session,preConstuct
+from Common import get_DB_engine,init_User_table,get_DB_session,preConstruct
 
 
 def gen_parse_class(f_name):

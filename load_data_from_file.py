@@ -43,7 +43,7 @@ def build_sql_by_tmpl(source_file,template,single_file=False,model=user_model):
         sep,columns = preConstruct(f.readline())
 
     if sep == 'SPACE':
-        sep = '\s'
+        sep = ' '
     columns = [c.strip() for c in columns]
     if not check_col_name(columns): return False
 
@@ -51,13 +51,13 @@ def build_sql_by_tmpl(source_file,template,single_file=False,model=user_model):
     table_name = model.__tablename__
 
     sql_query = """LOAD DATA LOCAL INFILE '{0}'
-    INTO TABLE {1}
-    FIELDS TERMINATED BY '{2}'
-    ENCLOSED BY '\\''
-    LINES TERMINATED BY '\\r\\n'
-    {3}
-    ({4});
-    """.format(
+INTO TABLE {1}
+FIELDS TERMINATED BY '{2}'
+OPTIONALLY ENCLOSED BY '\\''
+LINES TERMINATED BY '\\r\\n'
+{3}
+({4});
+""".format(
         source_file,
         table_name,
         sep,

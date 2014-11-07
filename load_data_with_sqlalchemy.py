@@ -65,7 +65,6 @@ def gen_parse_class(f_name):
     # session.commit(user)
     return spec_user_model
 
-
 # do one job
 def save_to_db(fname,user_class,single_file=False,lines_num=1000):
     """
